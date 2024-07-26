@@ -39,7 +39,7 @@ app.use("/api/upload", uploadRouter);
 app.use("/api/seed", seedRouter);
 app.use("/api/key", keyRouter);
 
-const PORT = 8000;
+/* const PORT = 8000; */
 
 // get
 app.get("/", (req: Request, res: Response) => {
@@ -57,8 +57,10 @@ mongoose
   });
 
 // starting our server
-const server = app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
-});
+const server = app.listen(
+  /* PORT */ () => {
+    console.log(`Server is listening on port`);
+  }
+);
 
 export { app, server };
