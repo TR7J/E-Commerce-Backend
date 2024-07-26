@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userRouter = void 0;
+const express_1 = __importDefault(require("express"));
+const userController_1 = require("../controllers/userController");
+const AuthMiddleware_1 = require("../middleware/AuthMiddleware");
+const AdminMiddleware_1 = require("../middleware/AdminMiddleware");
+const ValidatorsMiddleware_1 = require("../middleware/ValidatorsMiddleware");
+const userValidator_1 = require("../validators/userValidator");
+exports.userRouter = express_1.default.Router();
+exports.userRouter.post("/signin", (0, ValidatorsMiddleware_1.validateInput)(userValidator_1.signinUserSchema), userController_1.signinUser);
+exports.userRouter.post("/signup", (0, ValidatorsMiddleware_1.validateInput)(userValidator_1.signupUserSchema), userController_1.signupUser);
+exports.userRouter.put("/profile", AuthMiddleware_1.AuthMiddleware, (0, ValidatorsMiddleware_1.validateInput)(userValidator_1.signupUserSchema), userController_1.updateUserProfile);
+exports.userRouter.get("/", AuthMiddleware_1.AuthMiddleware, AdminMiddleware_1.AdminMiddleware, userController_1.getUsers);
+exports.userRouter.get("/current", AuthMiddleware_1.AuthMiddleware, userController_1.getCurrentUser);
+exports.userRouter.get("/:id", AuthMiddleware_1.AuthMiddleware, AdminMiddleware_1.AdminMiddleware, userController_1.getUserById);
+exports.userRouter.put("/:id", AuthMiddleware_1.AuthMiddleware, AdminMiddleware_1.AdminMiddleware, userController_1.updateUser);
+exports.userRouter.delete("/:id", AuthMiddleware_1.AuthMiddleware, AdminMiddleware_1.AdminMiddleware, userController_1.deleteUser);
