@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
+import path from "path";
 import { productRouter } from "./routes/productRouter";
 import { seedRouter } from "./routes/seedRouter";
 import { userRouter } from "./routes/userRouter";
@@ -28,8 +29,9 @@ app.use(
 app.use(express.json());
 // middleware for parsing url encoded data
 app.use(express.urlencoded({ extended: true }));
-
+/* 
 app.use("/uploads", express.static("uploads"));
+*/ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // middleware for our routes
 app.use("/api/products", productRouter);
