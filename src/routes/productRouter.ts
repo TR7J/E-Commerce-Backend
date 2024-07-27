@@ -47,7 +47,6 @@ productRouter.post(
   "/",
   AuthMiddleware,
   AdminMiddleware,
-  upload.single("image"),
   validateInput(createProductSchema),
   createProduct
 );
@@ -57,7 +56,6 @@ productRouter.put(
   "/:id",
   AuthMiddleware,
   AdminMiddleware,
-  upload.single("image"),
   validateInput(updateProductSchema),
   updateProduct
 );

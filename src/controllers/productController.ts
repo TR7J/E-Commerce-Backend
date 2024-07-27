@@ -39,34 +39,20 @@ export const getProductById = async (
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    const {
-      name,
-      slug,
-      price,
-      category,
-      brand,
-      countInStock,
-      rating,
-      numberOfReviews,
-      description,
-    } = req.body;
-    const image = req.file
-      ? /* req.file.path   */ `/uploads/${req.file.filename}`
-      : "";
     const newProduct = new Product({
-      name,
-      slug,
-      image,
-      price,
-      category,
-      brand,
-      countInStock,
-      rating,
-      numberOfReviews,
-      description,
+      name: "sample name " + Date.now(),
+      slug: "sample-name-" + Date.now(),
+      image: "/images/p1.jpg",
+      price: 2000,
+      category: "sample category",
+      brand: "sample brand",
+      countInStock: 0,
+      rating: 0,
+      numberOfReviews: 0,
+      description: "sample description",
     });
-    await newProduct.save();
-    res.status(201).send({ message: "Product Created", newProduct });
+    const product = await newProduct.save();
+    res.status(201).send({ message: "Product Created", product });
   } catch (error) {
     res.status(500).send({ message: "Error creating product", error });
   }
