@@ -18,6 +18,7 @@ import {
   createProductSchema,
   updateProductSchema,
 } from "../validators/productValidator";
+import upload from "../middleware/upload";
 
 export const productRouter = express.Router();
 
@@ -46,6 +47,7 @@ productRouter.post(
   "/",
   AuthMiddleware,
   AdminMiddleware,
+  upload.single("image"),
   validateInput(createProductSchema),
   createProduct
 );
@@ -55,6 +57,7 @@ productRouter.put(
   "/:id",
   AuthMiddleware,
   AdminMiddleware,
+  upload.single("image"),
   validateInput(updateProductSchema),
   updateProduct
 );
